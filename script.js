@@ -1,15 +1,12 @@
-var cartLen = 0;
-var cost = 0;
+let cartLen = 0;
+let cost = 0;
+
+let obj;
+setup();
 
 async function setup()
 {
-	var jsonLink= "https://raw.githubusercontent.com/alexsimkovich/patronage/main/api/data.json";
-	let textObj = await fetch(jsonLink);
-	let txt = await textObj.text();
-	var obj = JSON.parse(txt);
-
-	document.getElementById("subBtn").style.display='none';
-
+	obj = await getData();
 	makePizzasListItems(obj.length);
 	var str=[];
 	for(var i = 0; i<obj.length; i++)
@@ -22,11 +19,36 @@ async function setup()
 	}
 }
 
+
+async function getData()
+{
+	let jsonLink= "https://raw.githubusercontent.com/alexsimkovich/patronage/main/api/data.json";
+	let textObj = await fetch(jsonLink);
+	let txt = await textObj.text();
+	let obj = JSON.parse(txt);
+	return obj;
+}
+
+
+function addSubButton()
+{
+	let old = document.getElementById("cart").innerHTML;
+	document.getElementById("cart").innerHTML = old+'<button type="button" class="button" id="subBtn" onclick="subButtonPressed()"> Zamówienie </button>';
+}
+
+
+function deleteSubButton()
+{
+	document.getElementById("subBtn").remove();
+}
+
+
 function setImage(im,id)
 {
 	var old=document.getElementById("pli"+id).innerHTML;
 	document.getElementById("pli"+id).innerHTML='<img id="im'+id+'" class="image" src="'+im+'" >';
 }
+
 
 function setName(name,id)
 {
@@ -34,11 +56,13 @@ function setName(name,id)
 	document.getElementById("pli"+id).innerHTML=old+'<div id="name'+id+'" class="name">'+name+'</div>';
 }
 
+
 function setPrice(price,id)
 {
 	var old=document.getElementById("pli"+id).innerHTML;
 	document.getElementById("pli"+id).innerHTML=old+'<div id="price'+id+'" class="price">'+price+' zł</div>';
 }
+
 
 function setIngredients(ingredients,id)
 {
@@ -47,11 +71,13 @@ function setIngredients(ingredients,id)
 	document.getElementById("pli"+id).innerHTML=old+'<div id="ingredients'+id+'" class="ingredients">'+ingredients+'</div>';
 }
 
+
 function setButton(id)
 {
 	var old=document.getElementById("pli"+id).innerHTML;
-	document.getElementById("pli"+id).innerHTML=old+'<button type="button" class="button" id="btn'+id+'" onclick="pizzaButtonPressed('+id+')">Zamów</button>';
+	document.getElementById("pli"+id).innerHTML=old+'<button type="button" class="button" id="btn'+id+'" onclick="addToCartButtonPressed('+id+')">Zamów</button>';
 }
+
 
 function makePizzasListItems(len)
 {
@@ -63,14 +89,16 @@ function makePizzasListItems(len)
 	}
 }
 
-function pizzaButtonPressed(id)
+
+function addToCartButtonPressed(id)
 {
 	var position = existsInCart(id);
 	var old;
-	if (document.getElementById("subBtn").style.display=='none')
+	if (document.getElementById("cart").lastChild.textContent !=" Zamówienie ")
 	{
-		document.getElementById("subBtn").style.display='block';
+		addSubButton();
 	}
+
 	if (position==-1)
 	{
 		addCartListItem();
@@ -84,11 +112,12 @@ function pizzaButtonPressed(id)
 	}
 }
 
+
 function productButtonPressed(button)
 {
 	var amountOfChildren = button.parentElement.children.length;
-	var quantity = button.parentElement.children[amountOfChildren-1].innerHTML; 
-	var priceStr = button.parentElement.children[amountOfChildren-3].innerHTML; 
+	var quantity = button.parentElement.children[amountOfChildren-1].innerHTML;
+	var priceStr = obj[i].price;
 	var price = Number(priceStr.replace(" zł",""));
 	
 	cost-=price;
@@ -104,9 +133,10 @@ function productButtonPressed(button)
 	if(cartLen<=0)
 	{
 		document.getElementById("cost").innerHTML="Głodny? Zamów naszą pizzę";
-		document.getElementById("subBtn").style.display='none';
+		deleteSubButton();
 	}
 }
+
 
 function setProd(id)
 {
@@ -124,6 +154,7 @@ function setProd(id)
 	addCost(id);
 }
 
+
 function addCost(id) 
 {
 	var price=document.getElementById("price"+id).innerHTML;
@@ -133,6 +164,7 @@ function addCost(id)
 	document.getElementById("cost").innerHTML="Suma: "+cost+" zł";
 }
 
+
 function addCartListItem() 
 {
 	cartLen=cartLen+1;
@@ -141,6 +173,7 @@ function addCartListItem()
 	old=document.getElementById("cart_list").innerHTML;
 	document.getElementById("cart_list").innerHTML = old+'<li class="cli" id="cli'+ind+'"></li>';
 }
+
 
 function existsInCart(id) 
 {
@@ -160,7 +193,8 @@ function existsInCart(id)
 	return position;
 }
 
-function Sub() 
+
+function subButtonPressed()
 {
 	alert("Złożono zamówienie");
 }
