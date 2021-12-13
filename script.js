@@ -64,14 +64,12 @@ function makePizzasListItems(len) {
 
 function addToCartButtonPressed(id) {
     let position = existsInCart(id);
-    // alert("position = "+position);
     if (cartLen == 0) {
         addSubButton();
     }
 
     if (position == -1) {
         cartLen++;
-        //alert("cartLen = "+cartLen);
         cart.push(
             {
                 name: obj[id - 1].title,
@@ -115,7 +113,6 @@ function deleteProductFromCartButtonPressed(button) {
         cart[id - 1].quantity = 0;
         for (let i = 0; i < cartLen; i++) {
             cart[id - 1 + i] = cart[id + i];
-            //console.log("cart["+(id-1+i)+"].name = "+cart[id-1+i].name);
         }
         cart.pop();
         cartLen--;
@@ -146,9 +143,6 @@ function refreshCart() {
         console.log("cart[" + (i - 1) + "].name = " + cart[i - 1].name);
     }
 
-    // console.log("cart["+(cartLen)+"].name = "+cart[cartLen].name);
-    // console.log("cart["+(cartLen+1)+"].name = "+cart[cartLen+1].name);
-    //console.log("cart.length = "+cart.length);
     console.log("cartLen = " + cartLen);
 }
 
