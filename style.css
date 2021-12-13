@@ -1,233 +1,229 @@
-body
-{
-	background-color: black;
-	color: yellow;
-	font-size: 16px;
-	height: 100%;
-	width: 97%;
-	text-align: center;
+body {
+    background-color: black;
+    color: yellow;
+    font-size: 16px;
+    height: 100%;
+    width: 97%;
+    text-align: center;
     background-image: url("pizza-background.jpg");
-	background-position: top center;
+    background-position: top center;
 }
 
-#container
-{
-		width: 100%;
+#container {
+    width: 100%;
 }
 
-header
-{
-	height: 10%;
-	text-align: center;
-	font-size: 38px;
-	font-weight: bold;
-	margin: auto;
-	padding-top: 1px;
+
+header {
+    height: 10%;
+    text-align: center;
+    font-size: 38px;
+    font-weight: bold;
+    margin: auto;
+    padding-top: 1px;
 }
 
-footer
-{
-	height: 3%;
-	text-align: center;
-	font-size: 12px;
-	margin: auto;
-	padding-top: 1%;
-	clear: both;
+
+footer {
+    height: 3%;
+    text-align: center;
+    font-size: 12px;
+    margin: auto;
+    padding-top: 1%;
+    clear: both;
 }
 
-.button
-{
-	background-color: yellow;
-	font-weight: bold;
-	font-size: 24px;
-	padding: 2px;
-	width: 25%;
-	height: 60px;
-	font-size: 14px;
-	border-radius: 10px;
-	margin-left: 20px;
-	transition: all 0.3s ease-in-out;
+
+.button {
+    background-color: yellow;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 2px;
+    width: 25%;
+    height: 60px;
+    font-size: 14px;
+    border-radius: 10px;
+    margin-left: 20px;
+    transition: all 0.3s ease-in-out;
 }
 
-.button:hover
-{
-	transform: scale(1.05);
+.button:hover {
+    transform: scale(1.05);
 }
 
-.button:active
-{
-	transform: scale(0.9);
+
+.button:active {
+    transform: scale(0.9);
 }
 
-.image
-{
-	background-color: yellow;
-	font-size: 24px;
-	padding: 2px;
-	border-radius: 2px;
-	margin-left: 5px;
-	transition: all 0.3s ease-in-out;
+
+.image {
+    background-color: yellow;
+    object-fit: contain;
+    font-size: 24px;
+    padding: 2px;
+    border-radius: 2px;
+    margin-left: 5px;
+    transition: all 0.3s ease-in-out;
 }
 
-.image:hover
-{
-	transform: Scale(1.4);
+
+.image:hover {
+    transform: Scale(1.4);
 }
 
-.image:active
-{
-	transform: Scale(2.8);
+
+.image:active {
+    transform: Scale(2.8);
 }
 
-div
-{
-	padding: 10px;
-	float: left;
+
+div {
+    padding: 10px;
+    float: left;
 }
 
-ul
-{
-	list-style-type: none;
+
+ul {
+    list-style-type: none;
 }
 
-#left
-{
-	float: left;
-	width: 12%;
+
+#left {
+    float: left;
+    width: 12%;
 }
 
-#list
-{
-	width: 58%;
+
+#list {
+    width: 58%;
 }
 
-#cart
-{
-	float: left;
-	width: 24%;
-	position: fixed;
-	right: 3%;
-	top: 0%;
+
+#cart {
+    float: left;
+    width: 24%;
+    position: fixed;
+    right: 3%;
+    top: 0%;
 }
 
-img
-{
-	width: 230px;
-	height: 200px;
-	float: left;
-	position: relative;
-	z-index: 5;
+
+img {
+    width: 230px;
+    height: 200px;
+    float: left;
+    position: relative;
+    z-index: 5;
 }
 
-#cart_list
-{
-   clear: both;
-   text-align: left;
-   height: 200px;
-   width: 100%;
-   overflow-y: auto;
+
+#cart_list {
+    clear: both;
+    text-align: left;
+    height: 200px;
+    width: 100%;
+    overflow-y: auto;
 }
 
-#cart_list > li
-{
-	clear: both;
-	font-size: 16px;
-	height: 40px;
-	width: 100%;
+
+#cart_list > li {
+    clear: both;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
 }
 
-#pizzas_list
-{
-   text-align: left;
-   width: 100%;
-   height: 100%;
-   column-count: 2;
+
+#pizzas_list {
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    column-count: 2;
 }
 
-#pizzas_list > li
-{
-	height: 320px;
-	width: 360px;
+
+#pizzas_list > li {
+    height: 320px;
+    width: 360px;
 }
 
-.ingredients
-{
-	clear: both;
-	font-size: 16px;
-	width: 85%;
-	height: 15%;
+
+.ingredients {
+    clear: both;
+    font-size: 16px;
+    width: 85%;
+    height: 15%;
 }
 
-.price
-{
-	float: left;
-	width: 30%;
-	font-size: 20px;
+
+.price {
+    float: left;
+    width: 30%;
+    font-size: 20px;
 }
 
-.name
-{
-	float: left;
-	width: 30%;
-	font-size: 20px;
-	font-weight: bold;
+
+.name {
+    float: left;
+    width: 30%;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-#cost
-{
-	text-align: center;
-	width: 100%;
-	margin: auto;
-	up: 1px;
+
+#cost {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    up: 1px;
 }
 
-.prodname
-{
-	width: 18%;
-	height: 50%;
-	font-weight: bold;
+
+.prodname {
+    width: 18%;
+    height: 50%;
+    font-weight: bold;
 }
 
-.prodprice
-{
-	width: 13%;
+
+.prodprice {
+    width: 13%;
 }
 
-.prodquantity
-{
-	width: 2%;
+
+.prodquantity {
+    width: 2%;
 }
 
-#cart_list > li > .button
-{
-	float: left;
-	width: 17%;
-	height: 95%;
-	border-radius: 5px;
-	font-size: 12px;
+
+#cart_list > li > .button {
+    float: left;
+    width: 17%;
+    height: 95%;
+    border-radius: 5px;
+    font-size: 12px;
 }
 
-#subBtn
-{
-	margin: auto;
-	width: 30%;
+
+#subBtn {
+    margin: auto;
+    width: 30%;
 }
+
 
 /* width */
-::-webkit-scrollbar 
-{
-  width: 10px;
+::-webkit-scrollbar {
+    width: 10px;
 }
- 
+
 /* Handle */
-::-webkit-scrollbar-thumb 
-{
-  background: yellow; 
-  border-radius: 10px;
+::-webkit-scrollbar-thumb {
+    background: yellow;
+    border-radius: 10px;
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover 
-{
-  background: #aaaa00; 
+::-webkit-scrollbar-thumb:hover {
+    background: #aaaa00;
 }
