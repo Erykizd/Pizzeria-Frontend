@@ -64,12 +64,14 @@ function makePizzasListItems(len) {
 
 function addToCartButtonPressed(id) {
     let position = existsInCart(id);
+    // alert("position = "+position);
     if (cartLen == 0) {
         addSubButton();
     }
 
     if (position == -1) {
         cartLen++;
+        //alert("cartLen = "+cartLen);
         cart.push(
             {
                 name: obj[id - 1].title,
@@ -110,7 +112,6 @@ function deleteProductFromCartButtonPressed(button) {
     cart[id - 1].quantity = cart[id - 1].quantity - 1;
 
     if (quantity - 1 <= 0) {
-        cart[id - 1].quantity = 0;
         for (let i = 0; i < cartLen; i++) {
             cart[id - 1 + i] = cart[id + i];
         }
@@ -119,6 +120,7 @@ function deleteProductFromCartButtonPressed(button) {
     }
 
     if (cartLen <= 0) {
+        cart=[];
         document.getElementById("cost").innerHTML = "Głodny? Zamów naszą pizzę";
         deleteSubButton();
     }
