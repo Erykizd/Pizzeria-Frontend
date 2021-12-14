@@ -17,6 +17,12 @@
 <div id="container">
     <div id="left"></div>
     <div id="list">
+        <p>Sortowanie po:</p>
+        <label>A-Z: <input type="radio" class="radio" id="AZ" checked="true" onclick="radioChecked(this)"></label>
+        <label>Z-A: <input type="radio" class="radio" id="ZA" onclick="radioChecked(this)"></label>
+        <label>0-999: <input type="radio" class="radio" id="09" onclick="radioChecked(this)"></label>
+        <label>999-0: <input type="radio" class="radio" id="90" onclick="radioChecked(this)"></label>
+        Składniki: <input type="text" id="inptxt" onkeydown="inputTextActivated(this)">
         <ul id="pizzas_list">
         </ul>
     </div>
