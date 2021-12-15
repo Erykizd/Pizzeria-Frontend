@@ -1,25 +1,32 @@
 "use strict";
 
+
 let cartLen = 0;
 let cost = 0;
 let obj = [];
 let cart = [];
-let chckd = "AZ";
+let chckd = whichIsChecked();
+
 
 setup();
 
+
+const selectElement = document.querySelector('#sort-list');
+selectElement.addEventListener("change", sortPizzasList(whichIsChecked()));
+
+
 async function setup() {
     obj = await getData();
-    sortPizzasList("AZ");
+    obj=sortPizzasListByName(obj);
     refreshPizzasList();
 
     cart = readCartFromLocalStorage();
     cartLen = cart.length;
     if (cartLen > 0) {
+        refreshCart();
         addSubButton();
         addClearCartButton();
     }
-    refreshCart();
 }
 
 
@@ -227,7 +234,7 @@ function saveCartToLocalStorage() {
 }
 
 
-function sortPizzasList(how) {
+function sortPizzasListByName(pizzas) {
     let id = [];
     let title = [];
     let price = [];
@@ -235,41 +242,21 @@ function sortPizzasList(how) {
     let ingredients = [];
     let helper = [];
 
-    for (let i = 0; i < obj.length; i++) {
-        id[i] = obj[i].id;
-        title[i] = obj[i].title;
-        price[i] = obj[i].price;
-        image[i] = obj[i].image;
-        ingredients[i] = obj[i].ingredients;
+    for (let i = 0; i < pizzas.length; i++) {
+        id[i] = pizzas[i].id;
+        title[i] = pizzas[i].title;
+        price[i] = pizzas[i].price;
+        image[i] = pizzas[i].image;
+        ingredients[i] = pizzas[i].ingredients;
     }
 
-    switch (how) {
-        case "AZ":
-            title.sort();
-            break;
-        case "ZA":
-            title.sort();
-            title.reverse();
-            break;
-        case "09":
-            price.sort(function (a, b) {
-                return a - b
-            });
-            break;
-        case "90":
-            price.sort(function (a, b) {
-                return a - b
-            });
-            price.reverse();
-            break;
-    }
+    title.sort();
 
     let ind = [];
     let j = 0;
     let index = 0;
 
-    if (how == "AZ" || how == "ZA") {
-        for (let i = 0; i < obj.length; i++) {
+        for (let i = 0; i < pizzas.length; i++) {
             ind = findIndex(title[i], "title");
             index = ind[j];
             j++
@@ -285,8 +272,80 @@ function sortPizzasList(how) {
                     ingredients: ingredients[index]
                 });
         }
-    } else if (how == "09" || how == "90") {
-        for (let i = 0; i < obj.length; i++) {
+        pizzas = helper;
+        return pizzas;
+}
+
+
+function sortPizzasListByNameBackwards(pizzas) {
+    let id = [];
+    let title = [];
+    let price = [];
+    let image = [];
+    let ingredients = [];
+    let helper = [];
+
+    for (let i = 0; i < pizzas.length; i++) {
+        id[i] = pizzas[i].id;
+        title[i] = pizzas[i].title;
+        price[i] = pizzas[i].price;
+        image[i] = pizzas[i].image;
+        ingredients[i] = pizzas[i].ingredients;
+    }
+
+    title.sort();
+    title.reverse();
+
+    let ind = [];
+    let j = 0;
+    let index = 0;
+
+    for (let i = 0; i < pizzas.length; i++) {
+        ind = findIndex(title[i], "title");
+        index = ind[j];
+        j++
+        if (j >= ind.length) {
+            j = 0;
+        }
+        helper.push(
+            {
+                id: id[index],
+                title: title[i],
+                price: price[index],
+                image: image[index],
+                ingredients: ingredients[index]
+            });
+    }
+    pizzas = helper;
+    return pizzas;
+}
+
+
+function sortPizzasListByPrices(pizzas) {
+    let id = [];
+    let title = [];
+    let price = [];
+    let image = [];
+    let ingredients = [];
+    let helper = [];
+
+    for (let i = 0; i < pizzas.length; i++) {
+        id[i] = pizzas[i].id;
+        title[i] = pizzas[i].title;
+        price[i] = pizzas[i].price;
+        image[i] = pizzas[i].image;
+        ingredients[i] = pizzas[i].ingredients;
+    }
+
+    price.sort(function (a, b) {
+        return a - b
+    });
+
+    let ind = [];
+    let j = 0;
+    let index = 0;
+
+    for (let i = 0; i < pizzas.length; i++) {
             ind = findIndex(price[i], "price");
             index = ind[j];
             j++
@@ -302,9 +361,58 @@ function sortPizzasList(how) {
                     image: image[index],
                     ingredients: ingredients[index]
                 });
-        }
     }
-    obj = helper;
+
+    pizzas = helper;
+    return pizzas;
+}
+
+
+function sortPizzasListByPricesBackwards(pizzas) {
+    let id = [];
+    let title = [];
+    let price = [];
+    let image = [];
+    let ingredients = [];
+    let helper = [];
+
+    for (let i = 0; i < pizzas.length; i++) {
+        id[i] = pizzas[i].id;
+        title[i] = pizzas[i].title;
+        price[i] = pizzas[i].price;
+        image[i] = pizzas[i].image;
+        ingredients[i] = pizzas[i].ingredients;
+    }
+
+    price.sort(function (a, b) {
+        return a - b
+    });
+    price.reverse();
+
+    let ind = [];
+    let j = 0;
+    let index = 0;
+
+    for (let i = 0; i < pizzas.length; i++) {
+        ind = findIndex(price[i], "price");
+        index = ind[j];
+        j++
+        if (j >= ind.length) {
+            j = 0;
+        }
+
+        helper.push(
+            {
+                id: id[index],
+                title: title[index],
+                price: price[i],
+                image: image[index],
+                ingredients: ingredients[index]
+            });
+    }
+
+    pizzas = helper;
+    return pizzas;
 }
 
 
@@ -343,10 +451,30 @@ async function radioChecked(radio) {
         document.getElementsByClassName("radio")[i].checked = false;
     }
     radio.checked = true;
-    sortPizzasList(radio.id);
+
+    chckd = radio.id;
+    sortPizzasList(chckd);
+
     makePizzasListItems(obj.length);
     refreshPizzasList();
-    chckd = radio.id;
+}
+
+function sortPizzasList(how)
+{
+    switch (how) {
+        case "AZ":
+            obj=sortPizzasListByName(obj);
+            break;
+        case "ZA":
+            obj=sortPizzasListByNameBackwards(obj);
+            break;
+        case "09":
+            obj=sortPizzasListByPrices(obj);
+            break;
+        case "90":
+            obj=sortPizzasListByPricesBackwards(obj);
+            break;
+    }
 }
 
 
@@ -368,9 +496,33 @@ async function inputTextActivated(inpTxt) {
             obj = heleper;
         }
 
-        sortPizzasList(chckd);
         refreshPizzasList();
     } else {
         obj = await getData();
     }
 }
+
+
+function whichIsChecked()
+{
+    if(document.getElementById("AZ"))
+    {
+        chckd="AZ";
+    }
+
+    if(document.getElementById("ZA"))
+    {
+        chckd="ZA";
+    }
+
+    if(document.getElementById("09"))
+    {
+        chckd="09";
+    }
+
+    if(document.getElementById("90"))
+    {
+        chckd="90";
+    }
+}
+
