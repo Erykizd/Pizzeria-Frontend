@@ -9,6 +9,7 @@ body {
     background-position: top center;
 }
 
+
 #container {
     width: 100%;
 }
@@ -39,13 +40,14 @@ footer {
     font-weight: bold;
     font-size: 24px;
     padding: 2px;
-    width: 25%;
+    width: 40%;
     height: 60px;
     font-size: 14px;
     border-radius: 10px;
     margin-left: 20px;
     transition: all 0.3s ease-in-out;
 }
+
 
 .button:hover {
     transform: scale(1.05);
@@ -59,8 +61,7 @@ footer {
 
 .image {
     background-color: yellow;
-    object-fit: contain;
-    font-size: 24px;
+    object-fit: cover;
     padding: 2px;
     border-radius: 2px;
     margin-left: 5px;
@@ -137,36 +138,37 @@ img {
 
 #pizzas_list {
     text-align: left;
-    width: 100%;
+    width: 90%;
     height: 100%;
     column-count: 2;
 }
 
 
 #pizzas_list > li {
-    height: 320px;
-    width: 360px;
+    height: 420px;
+    width: 80%;
 }
 
 
 .ingredients {
     clear: both;
     font-size: 16px;
-    width: 85%;
-    height: 15%;
+    width: 100%;
+    height: 10%;
 }
 
 
 .price {
     float: left;
-    width: 30%;
+    width: 38%;
     font-size: 20px;
 }
 
 
 .name {
     float: left;
-    width: 30%;
+    width: 40%;
+    height: 20px;
     font-size: 20px;
     font-weight: bold;
 }
@@ -199,7 +201,7 @@ img {
 
 #cart_list > li > .button {
     float: left;
-    width: 17%;
+    width: 15%;
     height: 95%;
     border-radius: 5px;
     font-size: 12px;
@@ -209,6 +211,16 @@ img {
 #subBtn {
     margin: auto;
     width: 30%;
+    height: 60px;
+    font-size: 12px;
+}
+
+
+#clearCartBtn {
+    margin: auto;
+    width: 30%;
+    height: 60px;
+    font-size: 12px;
 }
 
 
@@ -217,14 +229,32 @@ img {
     width: 10px;
 }
 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: yellow;
     border-radius: 10px;
 }
 
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #aaaa00;
+}
+
+
+label {
+    padding: 15px;
+}
+
+
+input {
+    background-color: yellow;
+}
+
+
+select {
+    background-color: yellow;
+    width: 25%;
 }
 

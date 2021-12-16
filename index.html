@@ -17,6 +17,14 @@
 <div id="container">
     <div id="left"></div>
     <div id="list">
+        <p>Sortowanie i filtrowanie po:</p>
+        <select id="sortSelect">
+            <option value="AZ" selected>Nazwa rosnąco</option>
+            <option value="ZA">Nazwa malejąco</option>
+            <option value="09">Cena rosnąco</option>
+            <option value="90">Cena malejąco</option>
+        </select>
+        Składniki: <input type="text" id="inptxt" onkeydown="inputTextActivated(this)">
         <ul id="pizzas_list">
         </ul>
     </div>
