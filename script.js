@@ -1,23 +1,19 @@
 "use strict";
 
-
 let cartLen = 0;
 let cost = 0;
 let obj = [];
 let cart = [];
-let chckd = whichIsChecked();
-
+let chckd = "";
+let optionChecked = "";
+let sortSelect = null;
 
 setup();
 
 
-const selectElement = document.querySelector('#sort-list');
-selectElement.addEventListener("change", sortPizzasList(whichIsChecked()));
-
-
 async function setup() {
     obj = await getData();
-    obj=sortPizzasListByName(obj);
+    obj = sortPizzasListByName(obj);
     refreshPizzasList();
 
     cart = readCartFromLocalStorage();
@@ -27,6 +23,16 @@ async function setup() {
         addSubButton();
         addClearCartButton();
     }
+    sortSelect = document.querySelector("#sortSelect");
+    optionChecked = document.querySelector("#sortSelect option:checked").value;
+    sortSelect.addEventListener("change", updateOptionChecked)
+}
+
+
+function updateOptionChecked() {
+    optionChecked = sortSelect.value;
+    sortPizzasList(optionChecked);
+    refreshPizzasList();
 }
 
 
@@ -34,7 +40,6 @@ function refreshPizzasList() {
     let im, price, ingredients, id;
     document.getElementById("pizzas_list").innerHTML = "";
     makePizzasListItems(obj.length);
-    console.clear();
 
     for (let i = 0; i < obj.length; i++) {
         im = obj[i].image;
@@ -46,7 +51,6 @@ function refreshPizzasList() {
         document.getElementById("pli" + id).innerHTML += '<div id="name' + id + '" class="name">' + name + '</div>';
         document.getElementById("pli" + id).innerHTML += '<div id="price' + id + '" class="price">' + price + ' zł</div>';
         document.getElementById("pli" + id).innerHTML += '<div id="ingredients' + id + '" class="ingredients">' + ingredients + '</div>';
-        console.log("obj[" + i + "].title, price, ingredients = " + obj[i].title + " " + obj[i].price + " " + obj[i].ingredients);
         setButton(i + 1);
     }
 }
@@ -75,14 +79,14 @@ function addClearCartButton() {
 
 
 function deleteSubButton() {
-    if (document.getElementById("cart").lastChild.id != "cost") {
+    if (document.getElementById("cart").lastChild.id !== "cost") {
         document.getElementById("subBtn").remove();
     }
 }
 
 
 function deleteClearCartButton() {
-    if (document.getElementById("cart").lastChild.id != "cost") {
+    if (document.getElementById("cart").lastChild.id !== "cost") {
         document.getElementById("clearCartBtn").remove();
     }
 }
@@ -172,7 +176,7 @@ function refreshCart() {
         deleteClearCartButton();
     }
 
-    console.clear();
+
     cost = 0;
     let cont;
     let name, price, priceSTR, quantity;
@@ -185,10 +189,8 @@ function refreshCart() {
         cost += Number(price) * quantity;
         cont = '<div class="prodname">' + name + '</div>' + '<div class="prodprice">' + priceSTR + '</div>' + '<button type="button" class="button"  onclick="deleteProductFromCartButtonPressed(this)">Usuń</button>' + '<div class="prodquantity">' + quantity + '</div>';
         document.getElementsByClassName("cli")[i - 1].innerHTML = cont;
-        console.log("cart[" + (i - 1) + "].name = " + cart[i - 1].name);
     }
     refreshCost();
-    console.log("cartLen = " + cartLen);
 }
 
 
@@ -219,8 +221,6 @@ function clearCartButtonPressed() {
     document.getElementById("cost").innerHTML = "Głodny? Zamów naszą pizzę";
     cartLen = 0;
     refreshCart();
-    deleteSubButton();
-    deleteClearCartButton();
 }
 
 
@@ -256,24 +256,24 @@ function sortPizzasListByName(pizzas) {
     let j = 0;
     let index = 0;
 
-        for (let i = 0; i < pizzas.length; i++) {
-            ind = findIndex(title[i], "title");
-            index = ind[j];
-            j++
-            if (j >= ind.length) {
-                j = 0;
-            }
-            helper.push(
-                {
-                    id: id[index],
-                    title: title[i],
-                    price: price[index],
-                    image: image[index],
-                    ingredients: ingredients[index]
-                });
+    for (let i = 0; i < pizzas.length; i++) {
+        ind = findIndex(title[i], "title");
+        index = ind[j];
+        j++
+        if (j >= ind.length) {
+            j = 0;
         }
-        pizzas = helper;
-        return pizzas;
+        helper.push(
+            {
+                id: id[index],
+                title: title[i],
+                price: price[index],
+                image: image[index],
+                ingredients: ingredients[index]
+            });
+    }
+    pizzas = helper;
+    return pizzas;
 }
 
 
@@ -346,21 +346,21 @@ function sortPizzasListByPrices(pizzas) {
     let index = 0;
 
     for (let i = 0; i < pizzas.length; i++) {
-            ind = findIndex(price[i], "price");
-            index = ind[j];
-            j++
-            if (j >= ind.length) {
-                j = 0;
-            }
+        ind = findIndex(price[i], "price");
+        index = ind[j];
+        j++
+        if (j >= ind.length) {
+            j = 0;
+        }
 
-            helper.push(
-                {
-                    id: id[index],
-                    title: title[index],
-                    price: price[i],
-                    image: image[index],
-                    ingredients: ingredients[index]
-                });
+        helper.push(
+            {
+                id: id[index],
+                title: title[index],
+                price: price[i],
+                image: image[index],
+                ingredients: ingredients[index]
+            });
     }
 
     pizzas = helper;
@@ -445,34 +445,19 @@ function findIndex(str, str2) {
 }
 
 
-async function radioChecked(radio) {
-    obj = await getData();
-    for (let i = 0; i < 4; i++) {
-        document.getElementsByClassName("radio")[i].checked = false;
-    }
-    radio.checked = true;
-
-    chckd = radio.id;
-    sortPizzasList(chckd);
-
-    makePizzasListItems(obj.length);
-    refreshPizzasList();
-}
-
-function sortPizzasList(how)
-{
+function sortPizzasList(how) {
     switch (how) {
         case "AZ":
-            obj=sortPizzasListByName(obj);
+            obj = sortPizzasListByName(obj);
             break;
         case "ZA":
-            obj=sortPizzasListByNameBackwards(obj);
+            obj = sortPizzasListByNameBackwards(obj);
             break;
         case "09":
-            obj=sortPizzasListByPrices(obj);
+            obj = sortPizzasListByPrices(obj);
             break;
         case "90":
-            obj=sortPizzasListByPricesBackwards(obj);
+            obj = sortPizzasListByPricesBackwards(obj);
             break;
     }
 }
@@ -501,28 +486,3 @@ async function inputTextActivated(inpTxt) {
         obj = await getData();
     }
 }
-
-
-function whichIsChecked()
-{
-    if(document.getElementById("AZ"))
-    {
-        chckd="AZ";
-    }
-
-    if(document.getElementById("ZA"))
-    {
-        chckd="ZA";
-    }
-
-    if(document.getElementById("09"))
-    {
-        chckd="09";
-    }
-
-    if(document.getElementById("90"))
-    {
-        chckd="90";
-    }
-}
-
