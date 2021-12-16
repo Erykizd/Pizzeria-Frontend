@@ -17,14 +17,14 @@
 <div id="container">
     <div id="left"></div>
     <div id="list">
-        <div>
-            <p>Sortowanie po:</p>
-            <label>A-Z: <input type="radio" class="radio" id="AZ" checked="true"></label>
-            <label>Z-A: <input type="radio" class="radio" id="ZA"></label>
-            <label>0-999: <input type="radio" class="radio" id="09"></label>
-            <label>999-0: <input type="radio" class="radio" id="90"></label>
-            Składniki: <input type="text" id="inptxt" onkeydown="inputTextActivated(this)">
-        </div>
+        <p>Sortowanie i filtrowanie po:</p>
+        <select id="sortSelect">
+            <option value="AZ" selected>Nazwa rosnąco</option>
+            <option value="ZA">Nazwa malejąco</option>
+            <option value="09">Cena rosnąco</option>
+            <option value="90">Cena malejąco</option>
+        </select>
+        Składniki: <input type="text" id="inptxt" onkeydown="inputTextActivated(this)">
         <ul id="pizzas_list">
         </ul>
     </div>
@@ -39,4 +39,3 @@
 <footer>Website has been made by Eryk Izdebski.</footer>
 </body>
 </html>
-
