@@ -48,6 +48,7 @@ footer {
     transition: all 0.3s ease-in-out;
 }
 
+
 .button:hover {
     transform: scale(1.05);
 }
@@ -251,4 +252,9 @@ input {
     background-color: yellow;
 }
 
+
+select {
+    background-color: yellow;
+    width: 25%;
+}
 
